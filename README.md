@@ -1,5 +1,12 @@
 # 잠들게 해주세요 (Please Sleep Me)
 
+<p>
+  <img src="https://img.shields.io/badge/Unity-2021.3.17f1-000000?style=for-the-badge&logo=unity&logoColor=white" alt="Unity 2021.3.17f1"/>
+  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=dotnet&logoColor=white" alt="C#"/>
+  <img src="https://img.shields.io/badge/Google%20Cardboard-XR%20Plugin%201.19.0-FF7143?style=for-the-badge&logo=googlecardboard&logoColor=white" alt="Google Cardboard XR Plugin 1.19.0"/>
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android"/>
+</p>
+
 > 무덤 밖으로 나온 해골이 다시 잠들 수 있도록, **고개를 돌려 카드 짝을 맞추는** 모바일 VR 퍼즐 게임
 
 <p align="center">
@@ -11,11 +18,21 @@
 | --- | --- |
 | 분류 | 가상현실 수업 기말 프로젝트 (2023년 1학기, 6월 1일 발표) |
 | 플랫폼 | Android + Google Cardboard |
-| 엔진 / 언어 | Unity 2021.3.17f1 / C# |
-| VR SDK | Google Cardboard XR Plugin for Unity 1.19.0 |
 | 조작 | 머리 움직임으로 조준(시선 레이캐스트) + 화면 터치 |
 
 📄 [발표 자료 (PDF)](잠들게%20해주세요.pdf) · 🎬 [플레이 영상 (MP4)](플레이%20영상.mp4)
+
+## 사용 기술
+
+| 분류 | 기술 | 사용한 곳 |
+| --- | --- | --- |
+| 엔진 / 언어 | Unity 2021.3.17f1, C# | 전체 개발 |
+| VR | Google Cardboard XR Plugin 1.19.0 | 양안 스테레오 렌더링, 헤드 트래킹 |
+| 입력 | `Physics.Raycast`, 터치 입력 | 화면 중앙 시선으로 무덤·카드 선택 |
+| 게임 로직 | `Coroutine`, `SceneManager` | 카드 매칭 지연 연출, 시작 → 게임 → 엔딩 씬 전환 |
+| 이동 | Waypoint, `Quaternion.Slerp` | 스테이지 클리어 후 무덤 쪽으로 자동 이동 |
+| UI / 사운드 | UGUI(`Image.fillAmount`, `Text`), `AudioSource` | 응시 게이지, 스테이지 표시, 효과음 |
+| 에디터 도구 | `Gizmos` | Scene 뷰에 Waypoint 경로 표시 |
 
 ---
 
