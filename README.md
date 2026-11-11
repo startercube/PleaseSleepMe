@@ -30,7 +30,7 @@
 
 ```mermaid
 flowchart LR
-    A["StartScene<br/>Click To Start!"] -->|"3초 응시 또는 터치"| B["GameScene<br/>Stage 1 · 2쌍"]
+    A["StartScene<br/>Click To Start!"] -->|"무덤·해골 3초 응시 또는 터치"| B["GameScene<br/>Stage 1 · 2쌍"]
     B -->|"Waypoint 이동"| C["Stage 2 · 3쌍"]
     C -->|"Waypoint 이동"| D["Stage 3 · 4쌍"]
     D -->|"Waypoint 이동"| E["Stage 4 · 6쌍"]
@@ -40,13 +40,13 @@ flowchart LR
 | 시작 화면 | 스테이지 3 | 엔딩 |
 | :---: | :---: | :---: |
 | <img src="Images/start.png" alt="시작 화면"/> | <img src="Images/stage3.png" alt="스테이지 3"/> | <img src="Images/ending.png" alt="엔딩 화면"/> |
-| 가운데 빨간 점(레티클)으로 `Click To Start!`를 바라보면 게이지가 차오름 | 스테이지가 올라갈수록 카드 수가 늘어남 | 해골이 침대에 누워 잠들며 끝남 |
+| 가운데 빨간 점(레티클)으로 무덤이나 해골을 바라보면 게이지가 차오름 | 스테이지가 올라갈수록 카드 수가 늘어남 | 해골이 침대에 누워 잠들며 끝남 |
 
 ## 구현 내용
 
 ### 1. 시선 기반 입력 (Raycast)
 카메라 화면 중앙에서 레이를 쏴서 플레이어가 바라보는 오브젝트를 판단합니다.
-- **시작 버튼**(`Start` 태그): 바라보고 있으면 게이지(`Image.fillAmount`)가 3초에 걸쳐 차오르고, 다 차거나 화면을 터치하면 게임 씬으로 넘어갑니다.
+- **시작**(`Start` 태그가 붙은 무덤·해골): 무덤이나 해골을 바라보고 있으면 레티클 게이지(`Image.fillAmount`)가 3초에 걸쳐 차오르고, 다 차거나 바라본 상태에서 화면을 터치하면 게임 씬으로 넘어갑니다.
 - **카드**(`Card` 태그): 바라본 상태에서 화면을 터치하면 카드가 180° 회전해 뒤집힙니다.
 
 ### 2. 카드 매칭 (Coroutine)
