@@ -13,21 +13,21 @@ public class PlayerCtrl : MonoBehaviour
 
     private bool isTriggered = false;
     public Text TextUI;
-    private AudioSource audioSource;    //¹è°æÀ½¾Ç
-    public AudioClip audio1;    //Ä«µå ¼±ÅÃ
-    public AudioClip audio2;    //¸ÅÄª½ÇÆĞ
-    public AudioClip audio3;    //¸ÅÄª¼º°ø
-    public AudioClip audio4;    //½ºÅ×ÀÌÁö Å¬¸®¾î
+    private AudioSource audioSource;    //ë°°ê²½ìŒì•…
+    public AudioClip audio1;    //ì¹´ë“œ ì„ íƒ
+    public AudioClip audio2;    //ë§¤ì¹­ì‹¤íŒ¨
+    public AudioClip audio3;    //ë§¤ì¹­ì„±ê³µ
+    public AudioClip audio4;    //ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´
 
     private bool isCardFlipped = false;
     private GameObject flippedCard;
     private int matchedPairs = 0;
 
-    private bool isMatching = false; // ¸ÅÄªÀÌ ÁøÇà ÁßÀÎÁö ¿©ºÎ
-    private float matchingDelay = 0.5f; // ¸ÅÄª ½Ã°£ Áö¿¬ (ÃÊ)
+    private bool isMatching = false; // ë§¤ì¹­ì´ ì§„í–‰ ì¤‘ì¸ì§€ ì—¬ë¶€
+    private float matchingDelay = 0.5f; // ë§¤ì¹­ ì‹œê°„ ì§€ì—° (ì´ˆ)
 
     private int currentStage = 1;
-    private int totalStages = 4; // ÀüÃ¼ ½ºÅ×ÀÌÁö ¼ö
+    private int totalStages = 4; // ì „ì²´ ìŠ¤í…Œì´ì§€ ìˆ˜
 
     public enum MoveType
     {
@@ -65,7 +65,7 @@ public class PlayerCtrl : MonoBehaviour
         RaycastHit hit;
         CursorGaugeImage.fillAmount = GaugeTimer;
 
-        isTriggered = Input.GetMouseButtonDown(0);//ÅÍÄ¡
+        isTriggered = Input.GetMouseButtonDown(0);//í„°ì¹˜
 
         if (Physics.Raycast(ray, out hit, 10.0f))
         {
@@ -95,29 +95,29 @@ public class PlayerCtrl : MonoBehaviour
 
                     if (!isCardFlipped)
                     {
-                        // Ä«µå µÚÁı±â
+                        // ì¹´ë“œ ë’¤ì§‘ê¸°
                         hit.transform.Rotate(180f, 0f, 0f);
                         isCardFlipped = true;
                         flippedCard = hit.transform.gameObject;
                     }
                     else
                     {
-                        // µÎ ¹øÂ° Ä«µå µÚÁı±â
+                        // ë‘ ë²ˆì§¸ ì¹´ë“œ ë’¤ì§‘ê¸°
                         hit.transform.Rotate(180f, 0f, 0f);
 
-                        // Ä«µå ºñ±³
+                        // ì¹´ë“œ ë¹„êµ
                         if (hit.transform.gameObject.name == flippedCard.name)
                         {
-                            // °°Àº Ä«µåÀÏ °æ¿ì »ç¶óÁö°Ô ¸¸µé±â
+                            // ê°™ì€ ì¹´ë“œì¼ ê²½ìš° ì‚¬ë¼ì§€ê²Œ ë§Œë“¤ê¸°
                             StartCoroutine(MatchCards(flippedCard, hit.transform.gameObject));
                         }
                         else
                         {
-                            // ¸ÅÄª ½ÇÆĞ Ã³¸®
+                            // ë§¤ì¹­ ì‹¤íŒ¨ ì²˜ë¦¬
                             audioSource.clip = audio2;
                             audioSource.Play();
 
-                            // Ä«µå ´Ù½Ã µÚÁı±â
+                            // ì¹´ë“œ ë‹¤ì‹œ ë’¤ì§‘ê¸°
                             StartCoroutine(FlipCardsBack(flippedCard, hit.transform.gameObject));
                         }
 
@@ -154,20 +154,20 @@ public class PlayerCtrl : MonoBehaviour
 
     IEnumerator MatchCards(GameObject card1, GameObject card2)
     {
-        // ¸ÅÄªÀÌ ÁøÇà ÁßÀÎ »óÅÂ·Î ¼³Á¤
+        // ë§¤ì¹­ì´ ì§„í–‰ ì¤‘ì¸ ìƒíƒœë¡œ ì„¤ì •
         isMatching = true;
 
-        // Ä«µå º¸¿©ÁÖ±â
+        // ì¹´ë“œ ë³´ì—¬ì£¼ê¸°
         yield return new WaitForSeconds(matchingDelay);
 
-        // Ä«µå »ç¶óÁö°Ô ¸¸µé±â
+        // ì¹´ë“œ ì‚¬ë¼ì§€ê²Œ ë§Œë“¤ê¸°
         Destroy(card1);
         Destroy(card2);
         matchedPairs++;
 
         if (matchedPairs == 15)
         {
-            // ¸ğµç ½ºÅ×ÀÌÁö Å¬¸®¾î
+            // ëª¨ë“  ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´
             audioSource.clip = audio4;
             audioSource.Play();
 
@@ -227,7 +227,7 @@ public class PlayerCtrl : MonoBehaviour
     {
 
         isGoNext = true;
-        Debug.Log("´ÙÀ½ ½ºÅ×ÀÌÁö·Î ÀÌµ¿: " + currentStage);
+        Debug.Log("ë‹¤ìŒ ìŠ¤í…Œì´ì§€ë¡œ ì´ë™: " + currentStage);
         if (matchedPairs == 15)
         {
             TextUI.text = "Game clear!";
@@ -265,7 +265,7 @@ public class PlayerCtrl : MonoBehaviour
             isGoNext = false;
             if (matchedPairs == 15)
             {
-                // Àå¸éÀÌµ¿ ½ÃÅ°±â
+                // ì¥ë©´ì´ë™ ì‹œí‚¤ê¸°
                 SceneManager.LoadScene(2);
             }
         }
